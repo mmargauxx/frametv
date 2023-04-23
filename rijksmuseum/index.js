@@ -1,28 +1,30 @@
 require('dotenv').config();
 const request = require('request');
 const fs = require('fs');
+const sanitize = require('sanitize-filename');
 
 const apiKey = process.env.API_KEY;
-const baseUrl = 'https://www.rijksmuseum.nl/api/en/collection';
-const folderPath = './images';
+const baseUrl = 'https://www.rijksmuseum.nl/api/nl/collection';
+const folderPath = '../images'; 
 
-const downloadImage = (title, url) => {
-  const filePath = `${folderPath}/${title}.jpg`;
+const downloadImage = (imageId, url, title) => {
+  const sanitizedTitle = sanitize(title);
+  const filePath = `${folderPath}/${sanitizedTitle}.jpg`;
 
-  console.log(url)
+  console.log(`Downloading ${sanitizedTitle}...`);
 
   request.get(url)
     .on('error', (err) => {
-      console.error(`Failed to download image ${title}: ${err}`);
+      console.error(`Failed to download image ${sanitizedTitle}: ${err}`);
     })
     .pipe(fs.createWriteStream(filePath))
     .on('close', () => {
-      console.log(`Image ${title} downloaded successfully!`);
+      console.log(`Image ${sanitizedTitle} downloaded successfully!`);
     });
 }
 
 const searchImages = () => {
-  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=painting&ps=100`;
+  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=schilderij&toppieces=True&ps=50`;
 
   request.get(searchUrl, (err, res, body) => {
     if (err) {
@@ -33,9 +35,10 @@ const searchImages = () => {
     const data = JSON.parse(body);
 
     data.artObjects.forEach((artObject) => {
-      const title = artObject.title;
+      const imageId = artObject.objectNumber;
       const url = artObject.webImage.url;
-      downloadImage(title, url);
+      const title = artObject.title;
+      downloadImage(imageId, url, title);
     });
   });
 }
