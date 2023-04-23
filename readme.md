@@ -4,5 +4,6 @@ Based on the repository by Ow: [Samsung Frame Art Mode++](https://github.com/ow/
 
 ## Using the script
 - Request artwork from the Rijksmuseum API with your favorite queries, run the node script `node index.js` to download the images to a folder.
+- Images get resized to `3840 x 2160`, manual sorting is encouraged.
 - Run the script `python3 art.py`
 - Run the script again and enjoy your art! Anytime you want the image to change, run the script again.
