@@ -13,6 +13,7 @@
     "dotenv": "^16.0.3",
     "fs": "^0.0.1-security",
     "request": "^2.88.2",
-    "sanitize-filename": "^1.6.3"
+    "sanitize-filename": "^1.6.3",
+    "sharp": "^0.32.0"
   }
 }

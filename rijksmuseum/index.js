@@ -24,7 +24,7 @@ const downloadImage = (imageId, url, title) => {
 }
 
 const searchImages = () => {
-  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=schilderij&toppieces=True&ps=50`;
+  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=schilderij&toppieces=True&ps=50&q=bloemen`;
 
   request.get(searchUrl, (err, res, body) => {
     if (err) {
