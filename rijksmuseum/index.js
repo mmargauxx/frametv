@@ -22,7 +22,7 @@ const downloadImage = (title, url) => {
 }
 
 const searchImages = () => {
-  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=print&ps=100`;
+  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=painting&ps=100`;
 
   request.get(searchUrl, (err, res, body) => {
     if (err) {
