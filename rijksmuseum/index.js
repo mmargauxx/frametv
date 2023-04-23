@@ -2,10 +2,11 @@ require('dotenv').config();
 const request = require('request');
 const fs = require('fs');
 const sanitize = require('sanitize-filename');
+const sharp = require('sharp');
 
 const apiKey = process.env.API_KEY;
 const baseUrl = 'https://www.rijksmuseum.nl/api/nl/collection';
-const folderPath = '../images'; 
+const folderPath = '../images';
 
 const downloadImage = (imageId, url, title) => {
   const sanitizedTitle = sanitize(title);
@@ -17,9 +18,10 @@ const downloadImage = (imageId, url, title) => {
     .on('error', (err) => {
       console.error(`Failed to download image ${sanitizedTitle}: ${err}`);
     })
+    .pipe(sharp().resize(3840, 2160)) // W, H
     .pipe(fs.createWriteStream(filePath))
     .on('close', () => {
-      console.log(`Image ${sanitizedTitle} downloaded successfully!`);
+      console.log(`Image ${sanitizedTitle} downloaded and resized successfully!`);
     });
 }
 
