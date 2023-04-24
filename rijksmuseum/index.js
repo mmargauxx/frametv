@@ -7,6 +7,12 @@ const sharp = require('sharp');
 const apiKey = process.env.API_KEY;
 const baseUrl = 'https://www.rijksmuseum.nl/api/nl/collection';
 const folderPath = '../images';
+// const folderPath = './imgtestquery';
+
+// Search query
+const typeQuery = 'schilderij';
+const titleQuery = 'landschap';
+const amountQuery = 50;
 
 const downloadImage = (imageId, url, title) => {
   const sanitizedTitle = sanitize(title);
@@ -26,8 +32,8 @@ const downloadImage = (imageId, url, title) => {
 }
 
 const searchImages = () => {
-  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=schilderij&toppieces=True&ps=50&q=bloemen`;
-
+  const searchUrl = `${baseUrl}?key=${apiKey}&imgonly=True&type=${typeQuery}&toppieces=True&ps=${amountQuery}&q=${titleQuery}`;
+  
   request.get(searchUrl, (err, res, body) => {
     if (err) {
       console.error(`Failed to search images: ${err}`);
