@@ -11,5 +11,5 @@ const amountQuery = 50;
 ```
 
 
-[Rijksmuseum API](https://data.rijksmuseum.nl/object-metadata/api/)
+[Rijksmuseum API](https://data.rijksmuseum.nl/object-metadata/api/) & 
 [Advanced Search](https://www.rijksmuseum.nl/en/search/advanced)
